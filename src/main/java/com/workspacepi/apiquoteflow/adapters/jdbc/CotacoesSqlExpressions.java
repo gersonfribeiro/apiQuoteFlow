@@ -7,7 +7,18 @@ public class CotacoesSqlExpressions {
                         categoria,
                         cotacaoStatus,
                         data_cotacao
-                   from cotacoes
+                   FROM cotacoes
+               """;
+    }
+
+    public static String sqlSelectById() {
+        return """
+                   SELECT id_cotacao,
+                        categoria,
+                        cotacaoStatus,
+                        data_cotacao
+                   FROM cotacoes
+                   WHERE id = :id
                """;
     }
 }

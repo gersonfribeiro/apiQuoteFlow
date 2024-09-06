@@ -1,3 +1,5 @@
+# Configurações inicias da nossa aplicação
+
 spring:
   application:
     name: apiQuoteFlow
