@@ -8,6 +8,8 @@ public interface CotacaoRepository {
 
     List<Cotacao> findAll();
 
-    Cotacao findById(UUID cotacaoId);
+    Cotacao findById(UUID id_cotacao);
+
+    Boolean solicitarCotacao(Cotacao cotacao);
 
 }

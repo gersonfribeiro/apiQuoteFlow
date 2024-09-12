@@ -1,4 +1,4 @@
-# Configurações inicias da nossa aplicação
+# Configuraï¿½ï¿½es inicias da nossa aplicaï¿½ï¿½o
 
 spring:
   application:
@@ -11,7 +11,7 @@ spring:
   datasource:
     name: cotacao
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/cotacao
+    url: jdbc:postgresql://localhost:5432/quoteflow
     username: gersin
     password: Gersin4282
 server:
