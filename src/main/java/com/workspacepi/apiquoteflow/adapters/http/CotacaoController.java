@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 
@@ -12,8 +13,6 @@ import java.util.List;
 
 @RestController
 public class CotacaoController {
-    private static final String UUID_REGEX = "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}";
-
 
 //  Definição do nosso atributo Handles assim como o seu construtor
 
@@ -32,8 +31,8 @@ public class CotacaoController {
 
 //  Método get para a rota de uma cotação especifica.
 
-    @GetMapping("/cotacoes/{cotacaoId:$UUID_REGEX}")
-    public ResponseEntity<Cotacao> findById(@PathVariable String cotacaoId) throws Exception {
+    @GetMapping("/cotacoes/{cotacaoId:}")
+    public ResponseEntity<Cotacao> findById(@PathVariable  String cotacaoId) throws Exception {
         return cotacaoHandler.findById(cotacaoId);
     }
 
