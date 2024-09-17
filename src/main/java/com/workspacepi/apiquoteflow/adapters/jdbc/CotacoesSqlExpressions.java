@@ -29,19 +29,18 @@ public class CotacoesSqlExpressions {
 
     public static String sqlSolicitarCotacao() {
         return """
-                    INSERT INTO solicitacoes(
+                    INSERT INTO cotacoes(
                         id_cotacao,
                         categoria,
+                        data_solicitacao,
                         status,
-                        id_autor
-                        data_cotacao)
+                        id_autor)
                         values (
                             :id_cotacao,
                             :categoria,
+                            :data_solicitacao,
                             :status,
-                            :id_autor,
-                            :data_cotacao
-                        )
+                            :id_autor)
                """;
     }
 }

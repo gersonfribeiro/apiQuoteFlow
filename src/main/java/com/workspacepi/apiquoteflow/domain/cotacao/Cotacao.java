@@ -5,8 +5,8 @@ import java.time.Instant;
 import java.util.Set;
 import java.util.UUID;
 
-// A nossa classe cotação que será usada na manipulação e persistência dos dados
-// atravez dos métodos crud e consultas sql feitas no código da aplicação
+//  A nossa classe cotação que será usada na manipulação e persistência dos dados
+//  atravez dos métodos crud e consultas sql feitas no código da aplicação
 
 public class Cotacao {
     private UUID id_cotacao;
@@ -31,11 +31,11 @@ public class Cotacao {
 
     // Construtor para uso da inserção no banco de dados
 
-    public Cotacao(Categoria categoria, CotacaoStatus cotacaoStatus, UUID id_autor, Set<ItensCotacao> itens) {
+    public Cotacao(Categoria categoria, CotacaoStatus status, UUID id_autor, Set<ItensCotacao> itens) {
         this.id_cotacao = UUID.randomUUID();
         this.categoria = categoria;
-        this.status = cotacaoStatus;
         this.data_solicitacao = Timestamp.from(Instant.now());
+        this.status = status;
         this.id_autor = id_autor;
         this.itens = itens;
     }

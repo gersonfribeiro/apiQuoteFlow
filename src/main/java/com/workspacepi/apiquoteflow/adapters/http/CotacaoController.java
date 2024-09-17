@@ -1,10 +1,10 @@
 package com.workspacepi.apiquoteflow.adapters.http;
 
+import com.workspacepi.apiquoteflow.application.cotacao.CotacaoCreateCommand;
 import com.workspacepi.apiquoteflow.domain.cotacao.Cotacao;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 
@@ -30,9 +30,17 @@ public class CotacaoController {
 
 //  Método get para a rota de uma cotação especifica.
 
-    @GetMapping("/cotacoes/{cotacaoId:}")
-    public ResponseEntity<Cotacao> findById(@PathVariable  String cotacaoId) throws Exception {
+    @GetMapping("/cotacoes/{cotacaoId}")
+    public ResponseEntity<Cotacao> findById(@PathVariable String cotacaoId) throws Exception {
         return cotacaoHandler.findById(cotacaoId);
     }
+
+//  Método post para solicitar uma nova cotação (necessita de modificações
+    @PostMapping("cotacoes")
+    public ResponseEntity<Cotacao> create(@RequestBody CotacaoCreateCommand cotacaoCreateCommand) throws Exception {
+
+        return cotacaoHandler.solicitarCotacao(cotacaoCreateCommand);
+    }
+
 
 }

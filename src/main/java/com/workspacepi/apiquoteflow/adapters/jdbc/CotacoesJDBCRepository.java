@@ -84,8 +84,7 @@ public class CotacoesJDBCRepository implements CotacaoRepository {
         try {
             MapSqlParameterSource params = new MapSqlParameterSource("id_cotacao", cotacaoId);
             cotacoes = jdbcTemplate.query(sqlSelectById(), params, createCotacaoRowMapper());
-            Cotacao cotacao = cotacoes.isEmpty() ? null : cotacoes.get(0);
-            return cotacao;
+            return cotacoes.isEmpty() ? null : cotacoes.get(0);
         } catch (Exception e) {
             LOGGER.error("Houve um erro ao consultar a cotação: " + e.getMessage());
             throw e;
@@ -98,11 +97,11 @@ public class CotacoesJDBCRepository implements CotacaoRepository {
     public Boolean solicitarCotacao(Cotacao cotacao) {
         try {
             MapSqlParameterSource params = new MapSqlParameterSource();
-            params.addValue("id", cotacao.getId_cotacao());
+            params.addValue("id_cotacao", cotacao.getId_cotacao());
             params.addValue("categoria", cotacao.getCategoria().name());
+            params.addValue("data_solicitacao", cotacao.getDataSolicitacao());
             params.addValue("status", cotacao.getStatus().name());
             params.addValue("id_autor", cotacao.getId_autor());
-            params.addValue("dataCotacao", cotacao.getDataSolicitacao());
             params.addValue("itens", cotacao.getItens());
             int numLinhasAfetadas = jdbcTemplate.update(sqlSolicitarCotacao(), params);
             return numLinhasAfetadas > 0;

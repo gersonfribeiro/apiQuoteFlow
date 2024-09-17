@@ -17,24 +17,24 @@ public class CotacaoCreateCommand {
     @JsonProperty("categoria")
     private Categoria categoria;
 
-    @JsonProperty("cotacaoStatus")
-    private CotacaoStatus cotacaoStatus;
+    @JsonProperty("status")
+    private CotacaoStatus status;
 
 
-    @JsonProperty("dataCotacao")
+    @JsonProperty("data_solicitacao")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    private Timestamp dataCotacao;
-
-    @JsonProperty("itens")
-    private Set<ItensCotacao> itens;
+    private Timestamp data_solicitacao;
 
     @JsonProperty("id_autor")
     private UUID id_autor;
 
+    @JsonProperty("itens")
+    private Set<ItensCotacao> itens;
+
+
 //  Conversão para cotacao
     public Cotacao toCotacao() {
-        Cotacao cotacao = new Cotacao(categoria, cotacaoStatus, id_autor, itens);
-        return cotacao;
+        return new Cotacao(categoria, status, id_autor, itens);
     }
 
 //  Getters e setters
@@ -46,20 +46,20 @@ public class CotacaoCreateCommand {
         this.categoria = categoria;
     }
 
-    public CotacaoStatus getCotacaoStatus() {
-        return cotacaoStatus;
+    public CotacaoStatus getStatus() {
+        return status;
     }
 
-    public void setCotacaoStatus(CotacaoStatus cotacaoStatus) {
-        this.cotacaoStatus = cotacaoStatus;
+    public void setStatus(CotacaoStatus status) {
+        this.status = status;
     }
 
-    public Timestamp getDataCotacao() {
-        return dataCotacao;
+    public Timestamp getData_solicitacao() {
+        return data_solicitacao;
     }
 
-    public void setDataCotacao(Timestamp dataCotacao) {
-        this.dataCotacao = dataCotacao;
+    public void setData_solicitacao(Timestamp data_solicitacao) {
+        this.data_solicitacao = data_solicitacao;
     }
 
     public Set<ItensCotacao> getItens() {
