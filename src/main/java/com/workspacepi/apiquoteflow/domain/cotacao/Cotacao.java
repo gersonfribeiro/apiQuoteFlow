@@ -40,6 +40,17 @@ public class Cotacao {
         this.itens = itens;
     }
 
+    // Construtor para uso da modificação no banco de dados
+
+    public Cotacao(UUID id_cotacao, Categoria categoria, CotacaoStatus status, UUID id_autor, Set<ItensCotacao> itens) {
+        this.id_cotacao = id_cotacao;
+        this.categoria = categoria;
+        this.data_solicitacao = Timestamp.from(Instant.now());
+        this.status = status;
+        this.id_autor = id_autor;
+        this.itens = itens;
+    }
+
     public UUID getId_cotacao() {
         return id_cotacao;
     }

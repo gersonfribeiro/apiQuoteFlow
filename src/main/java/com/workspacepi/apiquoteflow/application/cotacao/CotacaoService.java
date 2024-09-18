@@ -40,11 +40,23 @@ public class CotacaoService {
         return  cotacao;
     }
 
-    public Cotacao solicitarCotacao(CotacaoCreateCommand cotacao) throws Exception{
-        Cotacao cotacaoDomain = cotacao.toCotacao();
+    public Cotacao solicitarCotacao(CotacaoCreateCommand cotacaoCreateCommand) throws Exception {
+        Cotacao cotacaoDomain = cotacaoCreateCommand.toCotacao();
         cotacaoRepository.solicitarCotacao(cotacaoDomain);
 
         return findById(cotacaoDomain.getId_cotacao());
+    }
+
+    public Cotacao modificarCotacao(CotacaoUpdateCommand cotacaoUpdateCommand, UUID cotacaoId) throws Exception {
+        Cotacao cotacaoDomain = cotacaoRepository.findById(cotacaoId);
+
+        if (cotacaoDomain == null) {
+            throw new CotacaoNaoEncontradaException(cotacaoId);
+        }
+
+        cotacaoRepository.modificarCotacao(cotacaoUpdateCommand.toCotacao(cotacaoId));
+        return findById(cotacaoId);
+
     }
 
 }

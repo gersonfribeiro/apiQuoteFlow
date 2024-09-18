@@ -1,11 +1,13 @@
 package com.workspacepi.apiquoteflow.adapters.http;
 
 import com.workspacepi.apiquoteflow.application.cotacao.CotacaoCreateCommand;
+import com.workspacepi.apiquoteflow.application.cotacao.CotacaoUpdateCommand;
 import com.workspacepi.apiquoteflow.domain.cotacao.Cotacao;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 
 //  Esse é o nosso controller, ele define os casos de uso para uma rota de cotacoes usando o método get
@@ -42,5 +44,11 @@ public class CotacaoController {
         return cotacaoHandler.solicitarCotacao(cotacaoCreateCommand);
     }
 
+//  Método put para solicitar uma nova cotação (necessita de modificações
+    @PutMapping("cotacoes/{cotacaoId}")
+    public ResponseEntity<Cotacao> create(@RequestBody CotacaoUpdateCommand cotacaoUpdateCommandCommand, @PathVariable String cotacaoId) throws Exception {
+
+        return cotacaoHandler.modificarCotacao(cotacaoUpdateCommandCommand, cotacaoId);
+    }
 
 }

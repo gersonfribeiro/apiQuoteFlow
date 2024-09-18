@@ -3,6 +3,7 @@ package com.workspacepi.apiquoteflow.adapters.http;
 
 import com.workspacepi.apiquoteflow.application.cotacao.CotacaoCreateCommand;
 import com.workspacepi.apiquoteflow.application.cotacao.CotacaoService;
+import com.workspacepi.apiquoteflow.application.cotacao.CotacaoUpdateCommand;
 import com.workspacepi.apiquoteflow.domain.cotacao.Cotacao;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,5 +42,10 @@ public class CotacaoHandler {
     public ResponseEntity<Cotacao> solicitarCotacao(CotacaoCreateCommand cotacaoCreateCommand) throws Exception{
         Cotacao cotacao = cotacaoService.solicitarCotacao(cotacaoCreateCommand);
         return ResponseEntity.status(HttpStatus.CREATED).body(cotacao);
+    }
+
+    public ResponseEntity<Cotacao> modificarCotacao(CotacaoUpdateCommand cotacaoUpdateCommand, String cotacaoId) throws Exception{
+        Cotacao cotacao = cotacaoService.modificarCotacao(cotacaoUpdateCommand, UUID.fromString(cotacaoId));
+        return ResponseEntity.ok(cotacao);
     }
 }

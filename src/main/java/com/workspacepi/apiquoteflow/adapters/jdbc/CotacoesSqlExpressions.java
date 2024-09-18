@@ -43,4 +43,15 @@ public class CotacoesSqlExpressions {
                             :id_autor)
                """;
     }
+
+    public static String sqlModificarCotacao() {
+        return """
+                   UPDATE cotacoes
+                   set categoria = :categoria,
+                        data_solicitacao = :data_solicitacao,
+                        status = :status,
+                        id_autor = :id_autor
+                   where id_cotacao = :id_cotacao
+               """;
+    }
 }

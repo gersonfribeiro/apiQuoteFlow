@@ -12,4 +12,6 @@ public interface CotacaoRepository {
 
     Boolean solicitarCotacao(Cotacao cotacao);
 
+    Boolean modificarCotacao(Cotacao cotacao);
+
 }

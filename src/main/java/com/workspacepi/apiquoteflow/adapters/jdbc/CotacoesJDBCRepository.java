@@ -61,6 +61,19 @@ public class CotacoesJDBCRepository implements CotacaoRepository {
         };
     }
 
+//  Função para mapeamento dos parâmetros para as consultas sql
+
+    private MapSqlParameterSource parameterSource(Cotacao cotacao) {
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("id_cotacao", cotacao.getId_cotacao());
+        params.addValue("categoria", cotacao.getCategoria().name());
+        params.addValue("data_solicitacao", cotacao.getDataSolicitacao());
+        params.addValue("status", cotacao.getStatus().name());
+        params.addValue("id_autor", cotacao.getId_autor());
+        params.addValue("itens", cotacao.getItens());
+        return params;
+    }
+
 //  Reescrita do método findAll definito na nossa interface de cotações
 
     @Override
@@ -96,17 +109,25 @@ public class CotacoesJDBCRepository implements CotacaoRepository {
     @Override
     public Boolean solicitarCotacao(Cotacao cotacao) {
         try {
-            MapSqlParameterSource params = new MapSqlParameterSource();
-            params.addValue("id_cotacao", cotacao.getId_cotacao());
-            params.addValue("categoria", cotacao.getCategoria().name());
-            params.addValue("data_solicitacao", cotacao.getDataSolicitacao());
-            params.addValue("status", cotacao.getStatus().name());
-            params.addValue("id_autor", cotacao.getId_autor());
-            params.addValue("itens", cotacao.getItens());
+            MapSqlParameterSource params = parameterSource(cotacao);
             int numLinhasAfetadas = jdbcTemplate.update(sqlSolicitarCotacao(), params);
             return numLinhasAfetadas > 0;
         } catch (Exception e) {
             LOGGER.error("Houve um erro ao solicitar a cotacao: " + e.getMessage());
+            throw e;
+        }
+    }
+
+//  Método de atualização de cotações
+
+    @Override
+    public Boolean modificarCotacao(Cotacao cotacao) {
+        try {
+            MapSqlParameterSource params = parameterSource(cotacao);
+            int numLinhasAfetadas = jdbcTemplate.update(sqlModificarCotacao(), params);
+            return numLinhasAfetadas > 0;
+        } catch (Exception e) {
+            LOGGER.error("Houve um erro ao atualizar a cotacao: " + e.getMessage());
             throw e;
         }
     }
