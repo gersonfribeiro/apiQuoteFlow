@@ -1,4 +1,4 @@
-package com.workspacepi.apiquoteflow.adapters.http.error;
+package com.workspacepi.apiquoteflow.adapters.http.cotacoes.error;
 
 import com.workspacepi.apiquoteflow.application.cotacao.exceptions.CotacaoNaoEncontradaException;
 import org.slf4j.Logger;
@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.UUID;
 
 @RestControllerAdvice
-public class ErrorHandler {
+public class CotacaoErrorHandler {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ErrorHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CotacaoErrorHandler.class);
 
-    // Lida com a CotacaoNaoEncontradaException
+    // Lida com a UcotacaoNaoEncontradaException
     @ExceptionHandler(CotacaoNaoEncontradaException.class)
     public ResponseEntity<Object> handleCotacaoNaoEncontradaException(CotacaoNaoEncontradaException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
@@ -23,13 +23,13 @@ public class ErrorHandler {
 
     // Método genérico para outras exceções
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleException(Exception e) {
+    public ResponseEntity<CotacaoErrorResponse> handleException(Exception e) {
         return buildResponse(null, HttpStatus.BAD_REQUEST, "Erro desconhecido", e);
     }
 
     // Método auxiliar para construir a resposta
-    private ResponseEntity<ErrorResponse> buildResponse(UUID id, HttpStatus status, String message, Throwable throwable) {
-        ErrorResponse response = new ErrorResponse(id, message);
+    private ResponseEntity<CotacaoErrorResponse> buildResponse(UUID id, HttpStatus status, String message, Throwable throwable) {
+        CotacaoErrorResponse response = new CotacaoErrorResponse(id, message);
         String fullMessage = "[" + status.value() + "] [" + throwable.getClass().getSimpleName() + "] " + message;
 
         if (status.is5xxServerError()) {

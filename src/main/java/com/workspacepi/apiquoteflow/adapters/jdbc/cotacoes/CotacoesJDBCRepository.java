@@ -1,10 +1,10 @@
 // Nosso repositório de acesso a dados
 
 
-package com.workspacepi.apiquoteflow.adapters.jdbc;
+package com.workspacepi.apiquoteflow.adapters.jdbc.cotacoes;
 
 
-import com.workspacepi.apiquoteflow.adapters.http.error.ErrorHandler;
+import com.workspacepi.apiquoteflow.adapters.http.cotacoes.error.CotacaoErrorHandler;
 import com.workspacepi.apiquoteflow.domain.cotacao.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +17,7 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
 
-import static com.workspacepi.apiquoteflow.adapters.jdbc.CotacoesSqlExpressions.*;
+import static com.workspacepi.apiquoteflow.adapters.jdbc.cotacoes.CotacoesSqlExpressions.*;
 
 
 // Nosso repositório que define os nossos métodos de query e de crud usando o JDBC
@@ -36,7 +36,7 @@ public class CotacoesJDBCRepository implements CotacaoRepository {
 
 //  Logger cuida do envio das nossas exceptions específicas ao invés das exceptions padrões
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ErrorHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CotacaoErrorHandler.class);
 
 
 //  Função da RowMapper para aproveitamento de código
@@ -50,14 +50,7 @@ public class CotacoesJDBCRepository implements CotacaoRepository {
             CotacaoStatus status = CotacaoStatus.valueOf(rs.getString("status"));
             UUID id_autor = UUID.fromString(rs.getString("id_autor"));
 
-            return new Cotacao(
-                    id_cotacao,
-                    categoria,
-                    data_solicitacao,
-                    status,
-                    id_autor,
-                    null
-            );
+            return new Cotacao(id_cotacao, categoria, data_solicitacao, status, id_autor,null);
         };
     }
 
@@ -80,7 +73,7 @@ public class CotacoesJDBCRepository implements CotacaoRepository {
     public List<Cotacao> findAll() {
         List<Cotacao> cotacoes = List.of();
         try {
-            cotacoes = jdbcTemplate.query(sqlSelectAll(), createCotacaoRowMapper());
+            cotacoes = jdbcTemplate.query(sqlSelectAllQuotations(), createCotacaoRowMapper());
             return cotacoes;
 
         } catch (Exception e) {
@@ -96,7 +89,7 @@ public class CotacoesJDBCRepository implements CotacaoRepository {
         List<Cotacao> cotacoes;
         try {
             MapSqlParameterSource params = new MapSqlParameterSource("id_cotacao", cotacaoId);
-            cotacoes = jdbcTemplate.query(sqlSelectById(), params, createCotacaoRowMapper());
+            cotacoes = jdbcTemplate.query(sqlSelectQuotationById(), params, createCotacaoRowMapper());
             return cotacoes.isEmpty() ? null : cotacoes.get(0);
         } catch (Exception e) {
             LOGGER.error("Houve um erro ao consultar a cotação: " + e.getMessage());

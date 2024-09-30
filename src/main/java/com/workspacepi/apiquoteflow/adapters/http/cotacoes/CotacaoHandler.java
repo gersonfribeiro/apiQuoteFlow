@@ -1,4 +1,4 @@
-package com.workspacepi.apiquoteflow.adapters.http;
+package com.workspacepi.apiquoteflow.adapters.http.cotacoes;
 
 
 import com.workspacepi.apiquoteflow.application.cotacao.CotacaoCreateCommand;
@@ -20,7 +20,7 @@ public class CotacaoHandler {
 
 //    Definção do atributo dos serviços de cotação e seu construtor
 
-    private CotacaoService cotacaoService;
+    private final CotacaoService cotacaoService;
     public CotacaoHandler(CotacaoService cotacaoService) {
         this.cotacaoService = cotacaoService;
     }

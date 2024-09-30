@@ -1,6 +1,5 @@
 package com.workspacepi.apiquoteflow.application.cotacao;
 
-import com.workspacepi.apiquoteflow.adapters.http.CotacaoHandler;
 import com.workspacepi.apiquoteflow.application.cotacao.exceptions.CotacaoNaoEncontradaException;
 import com.workspacepi.apiquoteflow.domain.cotacao.Cotacao;
 import com.workspacepi.apiquoteflow.domain.cotacao.CotacaoRepository;
@@ -18,7 +17,7 @@ public class CotacaoService {
 //  declara a abstração que devemos possuir nos métodos crud usando o JDBC
 //  assim como o seu construtor
 
-    private CotacaoRepository cotacaoRepository;
+    private final CotacaoRepository cotacaoRepository;
     public CotacaoService(CotacaoRepository cotacaoRepository) {
         this.cotacaoRepository = cotacaoRepository;
     }
