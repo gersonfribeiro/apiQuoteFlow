@@ -18,7 +18,7 @@ public class UsuarioErrorHandler {
 
     // Lida com a CotacaoNaoEncontradaException
     @ExceptionHandler(UsuarioNaoEncontradoException.class)
-    public ResponseEntity<Object> handleCotacaoNaoEncontradaException(CotacaoNaoEncontradaException e) {
+    public ResponseEntity<Object> handleUsuarioNaoEncontradoException(UsuarioNaoEncontradoException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
 

@@ -21,13 +21,18 @@ public class UsuariosCreateCommand {
     @JsonProperty("email_usuario")
     private String email_usuario;
 
-
     @JsonProperty("senha_usuario")
     private String senha_usuario;
 
+    @JsonProperty("telefone_usuario")
+    private String telefone_usuario;
+
+    @JsonProperty("id_empresa_usuario")
+    private String id_empresa_usuario;
+
 //  Conversão para usuario
     public Usuarios toUsuario() {
-        return new Usuarios(nome_usuario, email_usuario, senha_usuario);
+        return new Usuarios(nome_usuario, email_usuario, senha_usuario, telefone_usuario, id_empresa_usuario);
     }
 
 //  Getters e setters

@@ -14,19 +14,18 @@ import java.util.UUID;
 //  Usando Jackson para serialização
 public class CotacaoUpdateCommand {
 
-    @JsonProperty("categoria")
-    private Categoria categoria;
-
-    @JsonProperty("status")
-    private CotacaoStatus status;
-
-
-    @JsonProperty("data_solicitacao")
+    @JsonProperty("data_cotacao")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    private Timestamp data_solicitacao;
+    private Timestamp data_cotacao;
 
-    @JsonProperty("id_autor")
-    private UUID id_autor;
+    @JsonProperty("numero_cotacao")
+    private int numero_cotacao;
+
+    @JsonProperty("status_cotacao")
+    private CotacaoStatus status_cotacao;
+
+    @JsonProperty("id_empresa_cotacao")
+    private UUID id_empresa_cotacao;
 
     @JsonProperty("itens")
     private Set<ItensCotacao> itens;
@@ -34,32 +33,41 @@ public class CotacaoUpdateCommand {
 
 //  Conversão para cotacao
     public Cotacao toCotacao(UUID cotacaoId) {
-        return new Cotacao(cotacaoId, categoria, status, id_autor, itens);
+        return new Cotacao(cotacaoId, data_cotacao, numero_cotacao, status_cotacao, id_empresa_cotacao, itens);
     }
 
 //  Getters e setters
-    public Categoria getCategoria() {
-        return categoria;
+
+    public Timestamp getData_cotacao() {
+        return data_cotacao;
     }
 
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
+    public void setData_cotacao(Timestamp data_cotacao) {
+        this.data_cotacao = data_cotacao;
     }
 
-    public CotacaoStatus getStatus() {
-        return status;
+    public int getNumero_cotacao() {
+        return numero_cotacao;
     }
 
-    public void setStatus(CotacaoStatus status) {
-        this.status = status;
+    public void setNumero_cotacao(int numero_cotacao) {
+        this.numero_cotacao = numero_cotacao;
     }
 
-    public Timestamp getData_solicitacao() {
-        return data_solicitacao;
+    public CotacaoStatus getStatus_cotacao() {
+        return status_cotacao;
     }
 
-    public void setData_solicitacao(Timestamp data_solicitacao) {
-        this.data_solicitacao = data_solicitacao;
+    public void setStatus_cotacao(CotacaoStatus status_cotacao) {
+        this.status_cotacao = status_cotacao;
+    }
+
+    public UUID getId_empresa_cotacao() {
+        return id_empresa_cotacao;
+    }
+
+    public void setId_empresa_cotacao(UUID id_empresa_cotacao) {
+        this.id_empresa_cotacao = id_empresa_cotacao;
     }
 
     public Set<ItensCotacao> getItens() {
@@ -68,13 +76,5 @@ public class CotacaoUpdateCommand {
 
     public void setItens(Set<ItensCotacao> itens) {
         this.itens = itens;
-    }
-
-    public UUID getId_autor() {
-        return id_autor;
-    }
-
-    public void setId_autor(UUID id_autor) {
-        this.id_autor = id_autor;
     }
 }

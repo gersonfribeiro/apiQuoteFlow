@@ -7,50 +7,51 @@ public class CotacoesSqlExpressions {
     public static String sqlSelectAllQuotations() {
         return """
                     SELECT id_cotacao,
-                        categoria,
-                        data_solicitacao,
-                        status,
-                        id_autor
-                    FROM cotacoes
+                        data_cotacao,
+                        numero_cotacao,
+                        status_cotacao,
+                        id_empresa_cotacao
+                    FROM cotacao
                 """;
     }
 
     public static String sqlSelectQuotationById() {
         return """
                     SELECT id_cotacao,
-                         categoria,
-                         data_solicitacao,
-                         status,
-                         id_autor
-                    FROM cotacoes
+                        data_cotacao,
+                        numero_cotacao,
+                        status_cotacao,
+                        id_empresa_cotacao
+                    FROM cotacao
                     WHERE id_cotacao = :id_cotacao
                 """;
     }
 
     public static String sqlSolicitarCotacao() {
         return """
-                     INSERT INTO cotacoes(
-                         id_cotacao,
-                         categoria,
-                         data_solicitacao,
-                         status,
-                         id_autor)
+                     INSERT INTO cotacao(
+                            id_cotacao,
+                            data_cotacao,
+                            numero_cotacao,
+                            status_cotacao,
+                            id_empresa_cotacao)
                          values (
-                             :id_cotacao,
-                             :categoria,
-                             :data_solicitacao,
-                             :status,
-                             :id_autor)
+                            :id_cotacao,
+                            :data_cotacao,
+                            :numero_cotacao,
+                            :status_cotacao,
+                            :id_empresa_cotacao)
                 """;
     }
 
     public static String sqlModificarCotacao() {
         return """
-                    UPDATE cotacoes
-                    SET categoria = :categoria,
-                         data_solicitacao = :data_solicitacao,
-                         status = :status,
-                         id_autor = :id_autor
+                    UPDATE cotacao
+                    SET id_cotacao = :id_cotacao,
+                        data_cotacao = :data_cotacao,
+                        numero_cotacao = :numero_cotacao,
+                        status_cotacao = :status_cotacao,
+                        id_empresa_cotacao  = :id_empresa_cotacao
                     WHERE id_cotacao = :id_cotacao
                 """;
     }

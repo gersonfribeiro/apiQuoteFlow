@@ -12,6 +12,7 @@ import java.util.UUID;
 public class UsuariosService {
 
     private final UsuariosRepository usuariosRepository;
+
     public UsuariosService(UsuariosRepository usuariosRepository) {
         this.usuariosRepository = usuariosRepository;
     }

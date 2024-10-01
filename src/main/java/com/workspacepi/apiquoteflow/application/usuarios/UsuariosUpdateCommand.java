@@ -21,12 +21,17 @@ public class UsuariosUpdateCommand {
     @JsonProperty("email_usuario")
     private String email_usuario;
 
-
     @JsonProperty("senha_usuario")
     private String senha_usuario;
 
+    @JsonProperty("telefone_usuario")
+    private String telefone_usuario;
+
+    @JsonProperty("id_empresa_usuario")
+    private String id_empresa_usuario;
+
 //  Conversão para usuario
-    public Usuarios toUsuario(UUID usuarioId) { return new Usuarios(usuarioId, nome_usuario, email_usuario, senha_usuario);}
+    public Usuarios toUsuario(UUID usuarioId) { return new Usuarios(usuarioId, nome_usuario, email_usuario, senha_usuario, telefone_usuario, id_empresa_usuario);}
 
 //  Getters e setters
     public String getNome_usuario() {

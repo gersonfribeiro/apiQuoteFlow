@@ -12,5 +12,4 @@ public enum Categoria {
     UTENSILIOS,
     FERRAMENTAS,
     MATERIAIS_CONSTRUCAO
-
 }

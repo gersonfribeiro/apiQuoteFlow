@@ -10,89 +10,92 @@ import java.util.UUID;
 
 public class Cotacao {
     private UUID id_cotacao;
-    private Categoria categoria;
-    private Timestamp data_solicitacao;
-    private CotacaoStatus status;
-    private UUID id_autor;
+    private Timestamp data_cotacao;
+    private int numero_cotacao;
+    private CotacaoStatus status_cotacao;
+    private UUID id_empresa_cotacao;
+
+    //  Os itens vão se transformar em produtos!
     private Set<ItensCotacao> itens;
 
 //  Construtores
 
     // Construtor para uso do RowMapper
 
-    public Cotacao(UUID id_cotacao, Categoria categoria, Timestamp data_solicitacao, CotacaoStatus status, UUID id_autor, Set<ItensCotacao> itens) {
+    public Cotacao(UUID id_cotacao, Timestamp data_cotacao, int numero_cotacao, CotacaoStatus status_cotacao, UUID id_empresa_cotacao, Set<ItensCotacao> itens) {
         this.id_cotacao = id_cotacao;
-        this.categoria = categoria;
-        this.data_solicitacao = data_solicitacao;
-        this.status = status;
-        this.id_autor = id_autor;
+        this.data_cotacao = data_cotacao;
+        this.numero_cotacao = numero_cotacao;
+        this.status_cotacao = status_cotacao;
+        this.id_empresa_cotacao = id_empresa_cotacao;
         this.itens = itens;
     }
 
     // Construtor para uso da inserção no banco de dados
 
-    public Cotacao(Categoria categoria, CotacaoStatus status, UUID id_autor, Set<ItensCotacao> itens) {
+    public Cotacao(int numero_cotacao, CotacaoStatus status_cotacao, UUID id_empresa_cotacao, Set<ItensCotacao> itens) {
         this.id_cotacao = UUID.randomUUID();
-        this.categoria = categoria;
-        this.data_solicitacao = Timestamp.from(Instant.now());
-        this.status = status;
-        this.id_autor = id_autor;
+        this.data_cotacao = Timestamp.from(Instant.now());
+        this.numero_cotacao = numero_cotacao;
+        this.status_cotacao = status_cotacao;
+        this.id_empresa_cotacao = id_empresa_cotacao;
         this.itens = itens;
     }
 
     // Construtor para uso da modificação no banco de dados
 
-    public Cotacao(UUID id_cotacao, Categoria categoria, CotacaoStatus status, UUID id_autor, Set<ItensCotacao> itens) {
+    public Cotacao(UUID id_cotacao, CotacaoStatus status_cotacao, UUID id_empresa_cotacao, Set<ItensCotacao> itens) {
         this.id_cotacao = id_cotacao;
-        this.categoria = categoria;
-        this.data_solicitacao = Timestamp.from(Instant.now());
-        this.status = status;
-        this.id_autor = id_autor;
+        this.data_cotacao = Timestamp.from(Instant.now());
+        this.status_cotacao = status_cotacao;
+        this.id_empresa_cotacao = id_empresa_cotacao;
         this.itens = itens;
     }
 
+
+
     public UUID getId_cotacao() {
         return id_cotacao;
+    }
+
+    public CotacaoStatus getStatus_cotacao() {
+        return status_cotacao;
+    }
+
+    public Timestamp getData_cotacao() {
+        return data_cotacao;
+    }
+
+    public int getNumero_cotacao() {
+        return numero_cotacao;
+    }
+
+    public UUID getId_empresa_cotacao() {
+        return id_empresa_cotacao;
+    }
+
+    public Set<ItensCotacao> getItens() {
+        return itens;
     }
 
     public void setId_cotacao(UUID id_cotacao) {
         this.id_cotacao = id_cotacao;
     }
 
-    public Categoria getCategoria() {
-        return categoria;
+    public void setStatus_cotacao(CotacaoStatus status_cotacao) {
+        this.status_cotacao = status_cotacao;
     }
 
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
+    public void setData_cotacao(Timestamp dataCotacao) {
+        this.data_cotacao = dataCotacao;
     }
 
-    public CotacaoStatus getStatus() {
-        return status;
+    public void setNumero_cotacao(int numero_cotacao) {
+        this.numero_cotacao = numero_cotacao;
     }
 
-    public void setStatus(CotacaoStatus status) {
-        this.status = status;
-    }
-
-    public Timestamp getDataSolicitacao() {
-        return data_solicitacao;
-    }
-
-    public void setDataSolicitacao(Timestamp dataCotacao) {
-        this.data_solicitacao = dataCotacao;
-    }
-
-    public UUID getId_autor() {
-        return id_autor;
-    }
-
-    public void setId_autor(UUID id_autor) {
-        this.id_autor = id_autor;
-    }
-
-    public Set<ItensCotacao> getItens() {
-        return itens;
+    public void setId_empresa_cotacao(UUID id_empresa_cotacao) {
+        this.id_empresa_cotacao = id_empresa_cotacao;
     }
 
     public void setItens(Set<ItensCotacao> itens) {

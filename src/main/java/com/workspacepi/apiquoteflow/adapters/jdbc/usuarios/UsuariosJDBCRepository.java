@@ -41,6 +41,8 @@ public class UsuariosJDBCRepository implements UsuariosRepository {
         params.addValue("nome_usuario", usuario.getNome_usuario());
         params.addValue("email_usuario", usuario.getEmail_usuario());
         params.addValue("senha_usuario", usuario.getSenha_usuario());
+        params.addValue("telefone_usuario", usuario.getTelefone_usuario());
+        params.addValue("id_empresa_usuario", usuario.getId_empresa_usuario());
         return params;
     }
 

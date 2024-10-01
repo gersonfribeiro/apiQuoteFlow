@@ -45,12 +45,12 @@ public class CotacoesJDBCRepository implements CotacaoRepository {
     private RowMapper<Cotacao> createCotacaoRowMapper() {
         return (rs, rowNum) -> {
             UUID id_cotacao = UUID.fromString(rs.getString("id_cotacao"));
-            Categoria categoria = Categoria.valueOf(rs.getString("categoria"));
-            Timestamp data_solicitacao = rs.getTimestamp("data_solicitacao");
-            CotacaoStatus status = CotacaoStatus.valueOf(rs.getString("status"));
-            UUID id_autor = UUID.fromString(rs.getString("id_autor"));
+            Timestamp data_cotacao = rs.getTimestamp("data_cotacao");
+            int numero_cotacao = rs.getRow();
+            CotacaoStatus status_cotacao = CotacaoStatus.valueOf(rs.getString("status_cotacao"));
+            UUID id_empresa_cotacao = UUID.fromString(rs.getString("id_empresa_cotacao"));
 
-            return new Cotacao(id_cotacao, categoria, data_solicitacao, status, id_autor,null);
+            return new Cotacao(id_cotacao, data_cotacao, numero_cotacao, status_cotacao, id_empresa_cotacao,null);
         };
     }
 
@@ -59,10 +59,10 @@ public class CotacoesJDBCRepository implements CotacaoRepository {
     private MapSqlParameterSource parameterSource(Cotacao cotacao) {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("id_cotacao", cotacao.getId_cotacao());
-        params.addValue("categoria", cotacao.getCategoria().name());
-        params.addValue("data_solicitacao", cotacao.getDataSolicitacao());
-        params.addValue("status", cotacao.getStatus().name());
-        params.addValue("id_autor", cotacao.getId_autor());
+        params.addValue("data_cotacao", cotacao.getData_cotacao());
+        params.addValue("numero_cotacao", cotacao.getNumero_cotacao());
+        params.addValue("status_cotacao", cotacao.getStatus_cotacao().name());
+        params.addValue("id_empresa_cotacao", cotacao.getId_empresa_cotacao());
         params.addValue("itens", cotacao.getItens());
         return params;
     }
