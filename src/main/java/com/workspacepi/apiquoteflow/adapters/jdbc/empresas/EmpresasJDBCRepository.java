@@ -1,90 +1,95 @@
-//package com.workspacepi.apiquoteflow.adapters.jdbc.empresas;
-//
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
-//import org.springframework.jdbc.core.RowMapper;
-//import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-//import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-//import org.springframework.stereotype.Repository;
-//
-//import java.util.List;
-//import java.util.UUID;
-//
-//import static com.workspacepi.apiquoteflow.adapters.jdbc.usuarios.UsuariosSqlExpressions.*;
-//
-//
-//@Repository
-//public class EmpresasJDBCRepository implements UsuariosRepository {
-//    private final NamedParameterJdbcTemplate jdbcTemplate;
-//    public EmpresasJDBCRepository(NamedParameterJdbcTemplate jdbcTemplate) { this.jdbcTemplate = jdbcTemplate; }
-//
-//    private static final Logger LOGGER = LoggerFactory.getLogger(CotacaoErrorHandler.class);
-//
-//    private RowMapper<Usuarios> createUsuariosRowMapper() {
-//        return (rs, rowNum) -> {
-//            UUID id_usuario = UUID.fromString(rs.getString("id_usuario"));
-//            String nome_usuario = rs.getString("nome_usuario");
-//            String email_usuario = rs.getString("email_usuario");
-//            String senha_usuario = rs.getString("senha_usuario");
-//            return new Usuarios(id_usuario, nome_usuario, email_usuario, senha_usuario);
-//        };
-//    }
-//
-//    private MapSqlParameterSource parameterSource(Usuarios usuario) {
-//        MapSqlParameterSource params = new MapSqlParameterSource();
-//        params.addValue("id_usuario", usuario.getId_usuario());
-//        params.addValue("nome_usuario", usuario.getNome_usuario());
-//        params.addValue("email_usuario", usuario.getEmail_usuario());
-//        params.addValue("senha_usuario", usuario.getSenha_usuario());
-//        return params;
-//    }
-//
-//    @Override
-//    public List<Usuarios> findAll() {
-//        List<Usuarios> usuarios = List.of();
-//        try {
-//            usuarios = jdbcTemplate.query(sqlSelectAllUsers(), createUsuariosRowMapper());
-//            return usuarios;
-//        } catch (Exception e) {
-//            LOGGER.error("Houver um erro ao consultar os usuários: " + e.getMessage());
-//            throw e;
-//        }
-//    }
-//
-//    @Override
-//    public Usuarios findById(UUID usuarioId) {
-//        List<Usuarios> usuarios;
-//        try {
-//            MapSqlParameterSource params = new MapSqlParameterSource("id_usuario", usuarioId);
-//            usuarios = jdbcTemplate.query(sqlSelectUserById(), params, createUsuariosRowMapper());
-//            return usuarios.isEmpty() ? null : usuarios.get(0);
-//        } catch (Exception e) {
-//            LOGGER.error("Houve um erro ao consultar o  usuário: " + e.getMessage());
-//            throw e;
-//        }
-//    }
-//
-//    @Override
-//    public Boolean cadastrarUsuario(Usuarios usuario) {
-//        try {
-//            MapSqlParameterSource params = parameterSource(usuario);
-//            int numLinhasAfetadas = jdbcTemplate.update(sqlNewUser(), params);
-//            return numLinhasAfetadas > 0;
-//        } catch (Exception e) {
-//            LOGGER.error("Houve um erro ao cadastrar o usuário: " + e.getMessage());
-//            throw e;
-//        }
-//    }
-//
-//    @Override
-//    public Boolean modificarUsuario(Usuarios usuario) {
-//        try {
-//            MapSqlParameterSource params = parameterSource(usuario);
-//            int numLinhasAfetadas = jdbcTemplate.update(sqlUpdateUser(), params);
-//            return numLinhasAfetadas > 0;
-//        } catch (Exception e) {
-//            LOGGER.error("Houver um erro ao atualizar o usuário: " + e.getMessage());
-//            throw e;
-//        }
-//    }
-//}
+package com.workspacepi.apiquoteflow.adapters.jdbc.empresas;
+
+import com.workspacepi.apiquoteflow.adapters.http.empresas.error.EmpresasErrorHandler;
+import com.workspacepi.apiquoteflow.domain.empresas.Empresa;
+import com.workspacepi.apiquoteflow.domain.empresas.EmpresaRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.UUID;
+
+import static com.workspacepi.apiquoteflow.adapters.jdbc.empresas.EmpresasSqlExpressions.*;
+
+
+@Repository
+public class EmpresasJDBCRepository implements EmpresaRepository {
+    private final NamedParameterJdbcTemplate jdbcTemplate;
+    public EmpresasJDBCRepository(NamedParameterJdbcTemplate jdbcTemplate) { this.jdbcTemplate = jdbcTemplate; }
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(EmpresasErrorHandler.class);
+
+    private RowMapper<Empresa> createEmpresaRowMapper() {
+        return (rs, rowNum) -> {
+            UUID id_empresa = UUID.fromString(rs.getString("id_empresa"));
+            String cpnj_empresa = rs.getString("cnpj_empresa");
+            String email_empresa = rs.getString("email_empresa");
+            String nome_empresa = rs.getString("nome_empresa");
+            String senha_empresa = rs.getString("senha_empresa");
+            return new Empresa(id_empresa, cpnj_empresa, email_empresa, nome_empresa, senha_empresa);
+        };
+    }
+
+    private MapSqlParameterSource parameterSource(Empresa empresa) {
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("id_empresa", empresa.getId_empresa());
+        params.addValue("cnpj_empresa", empresa.getCnpj_empresa());
+        params.addValue("email_empresa", empresa.getEmail_empresa());
+        params.addValue("nome_empresa", empresa.getNome_empresa());
+        params.addValue("senha_empresa", empresa.getSenha_empresa());
+        return params;
+    }
+
+    @Override
+    public List<Empresa> findAll() {
+        List<Empresa> empresas = List.of();
+        try {
+            empresas = jdbcTemplate.query(sqlSelectAllEmpresas(), createEmpresaRowMapper());
+            return empresas;
+        } catch (Exception e) {
+            LOGGER.error("Houver um erro ao consultar as empresas: " + e.getMessage());
+            throw e;
+        }
+    }
+
+    @Override
+    public Empresa findById(UUID id_empresa) {
+        List<Empresa> empresas;
+        try {
+            MapSqlParameterSource params = new MapSqlParameterSource("id_empresa", id_empresa);
+            empresas = jdbcTemplate.query(sqlSelectEmpresaById(), params, createEmpresaRowMapper());
+            return empresas.isEmpty() ? null : empresas.get(0);
+        } catch (Exception e) {
+            LOGGER.error("Houve um erro ao consultar a empresa: " + e.getMessage());
+            throw e;
+        }
+    }
+
+    @Override
+    public Boolean cadastrarEmpresa(Empresa empresa) {
+        try {
+            MapSqlParameterSource params = parameterSource(empresa);
+            int numLinhasAfetadas = jdbcTemplate.update(sqlNewEmpresa(), params);
+            return numLinhasAfetadas > 0;
+        } catch (Exception e) {
+            LOGGER.error("Houve um erro ao cadastrar a empresa: " + e.getMessage());
+            throw e;
+        }
+    }
+
+    @Override
+    public Boolean modificarEmpresa(Empresa empresa) {
+        try {
+            MapSqlParameterSource params = parameterSource(empresa);
+            int numLinhasAfetadas = jdbcTemplate.update(sqlUpdateEmpresa(), params);
+            return numLinhasAfetadas > 0;
+        } catch (Exception e) {
+            LOGGER.error("Houver um erro ao atualizar a empresa: " + e.getMessage());
+            throw e;
+        }
+    }
+}

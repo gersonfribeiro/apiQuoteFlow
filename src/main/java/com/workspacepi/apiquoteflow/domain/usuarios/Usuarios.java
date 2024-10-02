@@ -8,10 +8,10 @@ public class Usuarios {
     private String email_usuario;
     private String senha_usuario;
     private String telefone_usuario;
-    private String id_empresa_usuario;
+    private UUID id_empresa_usuario;
 
 //  Construtor para uso do RowMapper
-    public Usuarios(UUID id_usuario, String nome_usuario, String email_usuario, String senha_usuario, String telefone_usuario, String id_empresa_usuario) {
+    public Usuarios(UUID id_usuario, String nome_usuario, String email_usuario, String senha_usuario, String telefone_usuario, UUID id_empresa_usuario) {
         this.id_usuario = id_usuario;
         this.nome_usuario = nome_usuario;
         this.email_usuario = email_usuario;
@@ -21,7 +21,7 @@ public class Usuarios {
     }
 
 //  Construtor para inserção no banco de dados
-    public Usuarios(String nome_usuario, String email_usuario, String senha_usuario, String telefone_usuario, String id_empresa_usuario) {
+    public Usuarios(String nome_usuario, String email_usuario, String senha_usuario, String telefone_usuario, UUID id_empresa_usuario) {
         this.id_usuario = UUID.randomUUID();
         this.nome_usuario = nome_usuario;
         this.email_usuario = email_usuario;
@@ -70,11 +70,11 @@ public class Usuarios {
         this.telefone_usuario = telefone_usuario;
     }
 
-    public String getId_empresa_usuario() {
+    public UUID getId_empresa_usuario() {
         return id_empresa_usuario;
     }
 
-    public void setId_empresa_usuario(String id_empresa_usuario) {
+    public void setId_empresa_usuario(UUID id_empresa_usuario) {
         this.id_empresa_usuario = id_empresa_usuario;
     }
 }

@@ -30,7 +30,7 @@ public class UsuariosJDBCRepository implements UsuariosRepository {
             String email_usuario = rs.getString("email_usuario");
             String senha_usuario = rs.getString("senha_usuario");
             String telefone_usuario = rs.getString("telefone_usuario");
-            String id_empresa_usuario = rs.getString("id_empresa_usuario");
+            UUID id_empresa_usuario = UUID.fromString(rs.getString("id_empresa_usuario"));
             return new Usuarios(id_usuario, nome_usuario, email_usuario, senha_usuario, telefone_usuario, id_empresa_usuario);
         };
     }

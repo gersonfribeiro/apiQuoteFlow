@@ -1,6 +1,7 @@
 package com.workspacepi.apiquoteflow.application.empresas;
 
 import com.workspacepi.apiquoteflow.application.empresas.exceptions.EmpresaNaoEncontradaException;
+import com.workspacepi.apiquoteflow.domain.cotacao.Cotacao;
 import com.workspacepi.apiquoteflow.domain.empresas.Empresa;
 import com.workspacepi.apiquoteflow.domain.empresas.EmpresaRepository;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,7 @@ public class EmpresasService {
 
     public Empresa cadastrarEmpresa(EmpresasCreateCommand empresasCreateCommand) throws Exception {
         Empresa empresaDomain = empresasCreateCommand.toEmpresa();
+        empresaRepository.cadastrarEmpresa(empresaDomain);
 
         return findById(empresaDomain.getId_empresa());
     }

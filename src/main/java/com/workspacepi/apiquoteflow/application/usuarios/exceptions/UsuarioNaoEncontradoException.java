@@ -6,6 +6,6 @@ import java.util.UUID;
 public class UsuarioNaoEncontradoException extends UsuariosExceptions {
 
     public UsuarioNaoEncontradoException(UUID usuarioId) {
-        super("Cotacao " + usuarioId + " não encontrada", usuarioId);
+        super("Usuário " + usuarioId + " não encontrado", usuarioId);
     }
 }

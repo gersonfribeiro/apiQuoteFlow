@@ -28,7 +28,7 @@ public class UsuariosCreateCommand {
     private String telefone_usuario;
 
     @JsonProperty("id_empresa_usuario")
-    private String id_empresa_usuario;
+    private UUID id_empresa_usuario;
 
 //  Conversão para usuario
     public Usuarios toUsuario() {
@@ -59,5 +59,21 @@ public class UsuariosCreateCommand {
 
     public void setSenha_usuario(String senha_usuario) {
         this.senha_usuario = senha_usuario;
+    }
+
+    public String getTelefone_usuario() {
+        return telefone_usuario;
+    }
+
+    public void setTelefone_usuario(String telefone_usuario) {
+        this.telefone_usuario = telefone_usuario;
+    }
+
+    public UUID getId_empresa_usuario() {
+        return id_empresa_usuario;
+    }
+
+    public void setId_empresa_usuario(UUID id_empresa_usuario) {
+        this.id_empresa_usuario = id_empresa_usuario;
     }
 }
