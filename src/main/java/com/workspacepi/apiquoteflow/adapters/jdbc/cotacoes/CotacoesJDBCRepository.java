@@ -8,6 +8,7 @@ import com.workspacepi.apiquoteflow.adapters.http.enderecos.error.EnderecosError
 import com.workspacepi.apiquoteflow.domain.cotacao.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Repository;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
+
+import static com.workspacepi.apiquoteflow.adapters.jdbc.cotacoes.CotacoesSqlExpressions.*;
 
 
 // Nosso repositório que define os nossos métodos de query e de crud usando o JDBC
