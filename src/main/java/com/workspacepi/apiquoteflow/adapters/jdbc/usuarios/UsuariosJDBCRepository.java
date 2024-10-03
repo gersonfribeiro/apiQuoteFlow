@@ -1,6 +1,6 @@
 package com.workspacepi.apiquoteflow.adapters.jdbc.usuarios;
 
-import com.workspacepi.apiquoteflow.adapters.http.cotacoes.error.CotacaoErrorHandler;
+import com.workspacepi.apiquoteflow.adapters.http.enderecos.error.EnderecosErrorHandler;
 import com.workspacepi.apiquoteflow.domain.usuarios.Usuarios;
 import com.workspacepi.apiquoteflow.domain.usuarios.UsuariosRepository;
 import org.slf4j.Logger;
@@ -21,7 +21,7 @@ public class UsuariosJDBCRepository implements UsuariosRepository {
     private final NamedParameterJdbcTemplate jdbcTemplate;
     public UsuariosJDBCRepository(NamedParameterJdbcTemplate jdbcTemplate) { this.jdbcTemplate = jdbcTemplate; }
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CotacaoErrorHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EnderecosErrorHandler.class);
 
     private RowMapper<Usuarios> createUsuariosRowMapper() {
         return (rs, rowNum) -> {
@@ -30,7 +30,7 @@ public class UsuariosJDBCRepository implements UsuariosRepository {
             String email_usuario = rs.getString("email_usuario");
             String senha_usuario = rs.getString("senha_usuario");
             String telefone_usuario = rs.getString("telefone_usuario");
-            String id_empresa_usuario = rs.getString("id_empresa_usuario");
+            UUID id_empresa_usuario = UUID.fromString(rs.getString("id_empresa_usuario"));
             return new Usuarios(id_usuario, nome_usuario, email_usuario, senha_usuario, telefone_usuario, id_empresa_usuario);
         };
     }
@@ -41,6 +41,8 @@ public class UsuariosJDBCRepository implements UsuariosRepository {
         params.addValue("nome_usuario", usuario.getNome_usuario());
         params.addValue("email_usuario", usuario.getEmail_usuario());
         params.addValue("senha_usuario", usuario.getSenha_usuario());
+        params.addValue("telefone_usuario", usuario.getTelefone_usuario());
+        params.addValue("id_empresa_usuario", usuario.getId_empresa_usuario());
         return params;
     }
 

@@ -122,5 +122,3 @@ public class Endereco {
         this.id_endereco = id_endereco;
     }
 }
-
-

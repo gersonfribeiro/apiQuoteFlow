@@ -4,7 +4,7 @@
 package com.workspacepi.apiquoteflow.adapters.jdbc.cotacoes;
 
 
-import com.workspacepi.apiquoteflow.adapters.http.cotacoes.error.CotacaoErrorHandler;
+import com.workspacepi.apiquoteflow.adapters.http.enderecos.error.EnderecosErrorHandler;
 import com.workspacepi.apiquoteflow.domain.cotacao.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +36,7 @@ public class CotacoesJDBCRepository implements CotacaoRepository {
 
 //  Logger cuida do envio das nossas exceptions específicas ao invés das exceptions padrões
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CotacaoErrorHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EnderecosErrorHandler.class);
 
 
 //  Função da RowMapper para aproveitamento de código

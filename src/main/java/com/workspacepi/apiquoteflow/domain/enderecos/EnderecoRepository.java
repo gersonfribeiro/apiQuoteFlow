@@ -13,7 +13,7 @@ public interface EnderecoRepository {
     Endereco findById(UUID id_endereco);
 
 //  Inserção
-    Boolean solicitarEndereco(Endereco endereco);
+    Boolean cadastrarEndereco(Endereco endereco);
 
 //  Modificação
     Boolean modificarEndereco(Endereco endereco);

@@ -1,15 +1,8 @@
 package com.workspacepi.apiquoteflow.application.usuarios;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.workspacepi.apiquoteflow.domain.cotacao.Categoria;
-import com.workspacepi.apiquoteflow.domain.cotacao.Cotacao;
-import com.workspacepi.apiquoteflow.domain.cotacao.CotacaoStatus;
-import com.workspacepi.apiquoteflow.domain.cotacao.ItensCotacao;
 import com.workspacepi.apiquoteflow.domain.usuarios.Usuarios;
 
-import java.sql.Timestamp;
-import java.util.Set;
 import java.util.UUID;
 
 //  Usando Jackson para serialização
@@ -21,13 +14,18 @@ public class UsuariosCreateCommand {
     @JsonProperty("email_usuario")
     private String email_usuario;
 
-
     @JsonProperty("senha_usuario")
     private String senha_usuario;
 
+    @JsonProperty("telefone_usuario")
+    private String telefone_usuario;
+
+    @JsonProperty("id_empresa_usuario")
+    private UUID id_empresa_usuario;
+
 //  Conversão para usuario
     public Usuarios toUsuario() {
-        return new Usuarios(nome_usuario, email_usuario, senha_usuario);
+        return new Usuarios(nome_usuario, email_usuario, senha_usuario, telefone_usuario, id_empresa_usuario);
     }
 
 //  Getters e setters

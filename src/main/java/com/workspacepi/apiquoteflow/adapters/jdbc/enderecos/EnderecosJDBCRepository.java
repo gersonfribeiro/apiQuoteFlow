@@ -2,6 +2,7 @@
 
 package com.workspacepi.apiquoteflow.adapters.jdbc.enderecos;
 
+import com.workspacepi.apiquoteflow.adapters.http.enderecos.error.EnderecosErrorHandler;
 import com.workspacepi.apiquoteflow.domain.enderecos.Endereco;
 import com.workspacepi.apiquoteflow.domain.enderecos.EnderecoRepository;
 import com.workspacepi.apiquoteflow.adapters.jdbc.enderecos.*;
@@ -17,9 +18,10 @@ import org.springframework.stereotype.Repository;
 import com.workspacepi.apiquoteflow.domain.enderecos.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
-import static com.workspacepi.apiquoteflow.adapters.jdbc.enderecos.EnderecosSqlExpressions.sqlSelectAllEnderecos;
+import static com.workspacepi.apiquoteflow.adapters.jdbc.enderecos.EnderecosSqlExpressions.*;
 
 
 // Nosso repositório que define os nossos métodos de query e de crud usando o JDBC
@@ -35,9 +37,9 @@ public class EnderecosJDBCRepository implements EnderecoRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    // Logger cuida do envio das nossas exceptions específicas ao invés das exceptions padrões
+//     Logger cuida do envio das nossas exceptions específicas ao invés das exceptions padrões
 
-//    private static final Logger LOGGER = LoggerFactory.getLogger(EnderecoErrorHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EnderecosErrorHandler.class);
 
 
 //  Função da RowMapper para aproveitamento de código
@@ -46,7 +48,7 @@ public class EnderecosJDBCRepository implements EnderecoRepository {
     private RowMapper<Endereco> createEnderecoRowMapper() {
             return (rs, rowNum) -> {
                 String bairro_endereco = rs.getString("bairro_endereco");
-                String cep_endereco = rs.getString("cep_enderco");
+                String cep_endereco = rs.getString("cep_endereco");
                 String complemento_endereco = rs.getString("complemento_endereco");
                 String localidade_endereco = rs.getString("localidade_endereco");
                 String logradouro_endereco = rs.getString("logradouro_endereco");
@@ -83,7 +85,7 @@ public class EnderecosJDBCRepository implements EnderecoRepository {
             return enderecos;
 
         } catch (Exception e) {
-//            LOGGER.error("Houve um erro ao consultar os endereços: " + e.getMessage());
+            LOGGER.error("Houve um erro ao consultar os endereços: " + e.getMessage());
             throw e;
         }
     }
@@ -91,22 +93,39 @@ public class EnderecosJDBCRepository implements EnderecoRepository {
 
     @Override
     public Endereco findById(UUID id_endereco) {
-        // TODO Auto-generated method stub
-        return null;
+        List<Endereco> enderecos;
+        try {
+            MapSqlParameterSource params = new MapSqlParameterSource("id_endereco", id_endereco);
+            enderecos = jdbcTemplate.query(sqlSelectEnderecosById(), params, createEnderecoRowMapper());
+            return enderecos.isEmpty() ? null : enderecos.get(0);
+        } catch (Exception e) {
+            LOGGER.error("Houve um erro ao consultar o endereco : " + e.getMessage());
+            throw e;
+        }
     }
 
+    @Override
+    public Boolean cadastrarEndereco(Endereco endereco) {
+        try {
+            MapSqlParameterSource params = parameterSource(endereco);
+            int numLinhasAfetadas = jdbcTemplate.update(sqlCadastrarEndereco(), params);
+            return numLinhasAfetadas > 0;
+        } catch (Exception e) {
+            LOGGER.error("Houve um erro ao cadastrar o endereco: " + e.getMessage());
+        }
+        return null;
+    }
 
     @Override
     public Boolean modificarEndereco(Endereco endereco) {
-        // TODO Auto-generated method stub
+        try {
+            MapSqlParameterSource params = parameterSource(endereco);
+            int numLinhasAfetadas = jdbcTemplate.update(sqlModificarEndereco(), params);
+            return numLinhasAfetadas > 0;
+        } catch (Exception e) {
+            LOGGER.error("Houve um erro ao editar o endereço: " + e.getMessage());
+        }
         return null;
     }
-
-
-    @Override
-    public Boolean solicitarEndereco(Endereco endereco) {
-        // TODO Auto-generated method stub
-        return null;
-    } 
 
 }
