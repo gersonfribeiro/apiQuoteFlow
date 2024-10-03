@@ -1,6 +1,6 @@
-package com.workspacepi.apiquoteflow.adapters.http.cotacoes.error;
+package com.workspacepi.apiquoteflow.adapters.http.enderecos.error;
 
-import com.workspacepi.apiquoteflow.application.cotacao.exceptions.CotacaoNaoEncontradaException;
+import com.workspacepi.apiquoteflow.application.enderecos.exceptions.EnderecoNaoEncontradoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -11,25 +11,24 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.UUID;
 
 @RestControllerAdvice
-public class CotacaoErrorHandler {
+public class EnderecosErrorHandler {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CotacaoErrorHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EnderecosErrorHandler.class);
 
-    // Lida com a cotacaoNaoEncontradaException
-    @ExceptionHandler(CotacaoNaoEncontradaException.class)
-    public ResponseEntity<Object> handleCotacaoNaoEncontradaException(CotacaoNaoEncontradaException e) {
+    @ExceptionHandler(EnderecoNaoEncontradoException.class)
+    public ResponseEntity<Object> handleEnderecoNaoEncontradoException(EnderecoNaoEncontradoException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
 
     // Método genérico para outras exceções
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<CotacaoErrorResponse> handleException(Exception e) {
+    public ResponseEntity<EnderecosErrorResponse> handleException(Exception e) {
         return buildResponse(null, HttpStatus.BAD_REQUEST, "Erro desconhecido", e);
     }
 
     // Método auxiliar para construir a resposta
-    private ResponseEntity<CotacaoErrorResponse> buildResponse(UUID id, HttpStatus status, String message, Throwable throwable) {
-        CotacaoErrorResponse response = new CotacaoErrorResponse(id, message);
+    private ResponseEntity<EnderecosErrorResponse> buildResponse(UUID id, HttpStatus status, String message, Throwable throwable) {
+        EnderecosErrorResponse response = new EnderecosErrorResponse(id, message);
         String fullMessage = "[" + status.value() + "] [" + throwable.getClass().getSimpleName() + "] " + message;
 
         if (status.is5xxServerError()) {

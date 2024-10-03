@@ -52,8 +52,6 @@ public class Cotacao {
         this.itens = itens;
     }
 
-
-
     public UUID getId_cotacao() {
         return id_cotacao;
     }

@@ -36,7 +36,7 @@ public class CotacaoService {
         if(cotacao == null)
             throw new CotacaoNaoEncontradaException(cotacaoId);
 
-        return  cotacao;
+        return cotacao;
     }
 
     public Cotacao solicitarCotacao(CotacaoCreateCommand cotacaoCreateCommand) throws Exception {
